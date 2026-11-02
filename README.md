@@ -72,9 +72,7 @@ url-prefix("chrome://browser/content/sidebar/")` for the sidebar documents,
 
 - **Mac.** The CSS was written and tested on Windows 11. Section 20 of `themes/minimal/userChrome.css` is a `@media (-moz-platform: macos)` block that moves ☰ to the right edge and leaves room for the traffic lights; it has not been checked on a Mac yet. The Windows caption-button and Mica rules are inert there.
 - **Switcher** is Windows only.
-- **Installer.** A native Windows installer (C#, compiled with the .NET Framework `csc.exe`)
-  existed; the exe and its sources were lost and it has not been rebuilt. It needs rebuilding
-  to carry the current theme.
+- **Installer.** `installer/build.ps1` builds `Minimal Firefox Theme Setup.exe` (C#, compiled with the .NET Framework `csc.exe` that ships with Windows). The exe is not committed; build it and publish it where needed.
 - **Switcher** reopens Firefox with an extra blank tab after each switch.
 - Holding Alt can make the menu bar cover ☰.
 - Styled but not yet checked on screen: dialogs, permission prompts, tab previews, error

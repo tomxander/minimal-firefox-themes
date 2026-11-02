@@ -24,6 +24,7 @@ $Utf8 = New-Object System.Text.UTF8Encoding $false
 # theme that doesn't set them gets Firefox's defaults back.
 $ManagedPrefs = @(
   'browser.uidensity',
+  'sidebar.visibility',
   'widget.non-native-theme.scrollbar.style',
   'ui.useOverlayScrollbars',
   'browser.toolbars.bookmarks.visibility',

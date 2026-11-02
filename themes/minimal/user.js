@@ -26,3 +26,7 @@ user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
 user_pref("browser.newtabpage.activity-stream.showWeather", false);
 user_pref("browser.newtabpage.activity-stream.widgets.enabled", false);
 user_pref("browser.newtabpage.activity-stream.logowordmark.alwaysVisible", false);
+
+// Sidebar strip (the icon column on the left) off by default. Ctrl+B or the
+// View menu opens the sidebar when you need it.
+user_pref("sidebar.visibility", "hide-sidebar");
