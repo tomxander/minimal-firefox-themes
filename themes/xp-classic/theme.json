@@ -1,0 +1,6 @@
+{
+    "description":  "Windows XP Luna: blue title bar, beige menu bar, Bliss new tab page, XP icons and status bar.",
+    "name":  "XP Classic",
+    "menubar":  true,
+    "order":  1
+}

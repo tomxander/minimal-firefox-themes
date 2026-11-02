@@ -1,0 +1,231 @@
+/* Windows XP "Luna" look for Firefox — page content.
+   Works together with userChrome.css. To undo: delete this file and restart Firefox. */
+
+/* ---------- Every website: XP scrollbars and blue text selection ---------- */
+:root {
+  scrollbar-color: #B6CAF7 #F4F3EE !important;
+}
+::selection {
+  background: #316AC5 !important;
+  color: #FFF !important;
+}
+
+/* ---------- New tab / home page: "Bliss" wallpaper ---------- */
+@-moz-document url("about:newtab"), url("about:home"), url-prefix("about:newtab"), url-prefix("about:home") {
+  :root, body {
+    --newtab-background-color: transparent !important;
+    --newtab-background-color-secondary: #FFF !important;
+    --newtab-text-primary-color: #000 !important;
+    --newtab-text-secondary-color: #333 !important;
+    --newtab-element-hover-color: #E8EEFB !important;
+    --newtab-element-active-color: #D2DDF5 !important;
+    --newtab-element-secondary-color: #ECE9D8 !important;
+    --newtab-border-color: #0054E3 !important;
+    --newtab-primary-action-background: #316AC5 !important;
+    --newtab-primary-element-hover-color: #316AC5 !important;
+    --newtab-wordmark-color: #FFF !important;
+    --newtab-search-icon-color: #2B4E9C !important;
+    --newtab-overlay-color: rgba(0, 0, 0, 0.35) !important;
+    --newtab-button-background: #ECE9D8 !important;
+    --newtab-button-text: #000 !important;
+    --border-radius-small: 3px !important;
+    --border-radius-medium: 3px !important;
+    --border-radius-large: 3px !important;
+    color-scheme: light !important;
+    font-family: Tahoma, "Segoe UI", sans-serif !important;
+  }
+
+  html {
+    min-height: 100% !important;
+    background:
+      /* soft clouds */
+      radial-gradient(ellipse 22% 7% at 22% 18%, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0) 100%),
+      radial-gradient(ellipse 18% 5% at 30% 15%, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 100%),
+      radial-gradient(ellipse 26% 8% at 72% 24%, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 100%),
+      radial-gradient(ellipse 16% 5% at 82% 20%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 100%),
+      radial-gradient(ellipse 30% 6% at 50% 40%, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 100%),
+      /* the green hill */
+      radial-gradient(ellipse 95% 48% at 38% 108%, #6DBE2E 0%, #57A825 35%, #3F8D19 62%, #2F7612 72%, rgba(47,118,18,0) 72.4%),
+      radial-gradient(ellipse 80% 42% at 92% 112%, #5FAF29 0%, #4A9A20 50%, #3A8418 66%, rgba(58,132,24,0) 66.4%),
+      /* the sky */
+      linear-gradient(to bottom, #1F5FCF 0%, #3B7FE0 25%, #6FA6EC 50%, #A7CBF4 70%, #CFE3F9 100%) !important;
+    background-attachment: fixed !important;
+  }
+  body, .outer-wrapper, main, .non-collapsible-section, .body-wrapper {
+    background: transparent !important;
+  }
+
+  /* Section headings sit on the sky: white with a shadow */
+  h1, h2, h3, .section-title, .section-title span, .section-top-bar *, .wordmark, .logo-and-wordmark * {
+    color: #FFF !important;
+    fill: #FFF !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 50, 0.7) !important;
+  }
+
+  /* Search box: classic XP text field */
+  .search-handoff-button, .search-inner-wrapper input, #newtab-search-text, .fake-textbox {
+    background-color: #FFF !important;
+    color: #000 !important;
+    border: 1px solid #7F9DB9 !important;
+    border-radius: 0 !important;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  /* Shortcut tiles: small XP windows */
+  .top-site-outer .tile, .top-site-outer .top-site-inner > a .tile {
+    background: #FFF !important;
+    border: 1px solid #0054E3 !important;
+    border-radius: 3px !important;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35) !important;
+  }
+  .top-site-outer .title, .top-site-outer .title span {
+    color: #FFF !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 50, 0.8) !important;
+  }
+  .top-site-outer:hover .tile { border-color: #E68B2C !important; }
+
+  /* Story cards & widgets: XP window boxes */
+  .card-outer, .ds-card, .ds-card-grid > *, .widget, [class*="widget"] > article,
+  .weather, .focus-timer, .lists-widget, .world-clock, .card-wrapper, article {
+    background: #FFF !important;
+    color: #000 !important;
+    border: 1px solid #0054E3 !important;
+    border-top: 18px solid #0055EB !important;
+    border-radius: 3px 3px 0 0 !important;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.35) !important;
+  }
+  .card-outer *, .ds-card *, .widget *, article *,
+  .card-outer :is(h1, h2, h3, h4, .title, .ds-heading),
+  .ds-card :is(h1, h2, h3, h4, .title, .ds-heading),
+  article :is(h1, h2, h3, h4, .title) {
+    color: #000 !important;
+    fill: #000 !important;
+    text-shadow: none !important;
+  }
+}
+
+/* ---------- Firefox's own pages (settings, add-ons, downloads, ...) ---------- */
+@-moz-document url-prefix("about:preferences"), url-prefix("about:settings"), url-prefix("about:addons"),
+               url-prefix("about:downloads"), url-prefix("about:support"), url-prefix("about:config"),
+               url-prefix("about:profiles"), url-prefix("about:logins"), url-prefix("about:protections"),
+               url-prefix("about:processes"), url-prefix("about:certificate"), url-prefix("about:policies"),
+               url-prefix("about:sessionrestore"), url-prefix("about:welcome") {
+  :root, body {
+    color-scheme: light !important;
+    /* design tokens (also reach the built-in components) */
+    --background-color-canvas: #ECE9D8 !important;
+    --background-color-box: #FFF !important;
+    --text-color: #000 !important;
+    --text-color-deemphasized: #444 !important;
+    --border-color: #ACA899 !important;
+    --border-color-interactive: #7F9DB9 !important;
+    --color-accent-primary: #316AC5 !important;
+    --color-accent-primary-hover: #2A5BB0 !important;
+    --color-accent-primary-active: #1F4A99 !important;
+    --link-color: #0000EE !important;
+    --border-radius-small: 3px !important;
+    --border-radius-medium: 3px !important;
+    --border-radius-large: 3px !important;
+    --button-border-radius: 3px !important;
+    --button-background-color: #F4F3EE !important;
+    --button-background-color-hover: #FFF7E0 !important;
+    --button-background-color-active: #E3E0D0 !important;
+    --button-text-color: #000 !important;
+    --button-border-color: #003C74 !important;
+    --button-background-color-primary: #316AC5 !important;
+    --button-text-color-primary: #FFF !important;
+    --focus-outline-color: #316AC5 !important;
+    /* older in-content variables */
+    --in-content-page-background: #ECE9D8 !important;
+    --in-content-page-color: #000 !important;
+    --in-content-box-background: #FFF !important;
+    --in-content-box-border-color: #ACA899 !important;
+    --in-content-text-color: #000 !important;
+    --in-content-accent-color: #316AC5 !important;
+    --in-content-item-selected: #316AC5 !important;
+    --in-content-item-selected-text: #FFF !important;
+    --in-content-button-background: #F4F3EE !important;
+    --in-content-button-background-hover: #FFF7E0 !important;
+    --in-content-button-border-color: #003C74 !important;
+    --in-content-primary-button-background: #316AC5 !important;
+    --in-content-primary-button-text-color: #FFF !important;
+    --in-content-border-color: #ACA899 !important;
+    --in-content-link-color: #0000EE !important;
+    font-family: Tahoma, "Segoe UI", sans-serif !important;
+    font-size: 12px;
+  }
+  html, body {
+    background: #ECE9D8 !important;
+    color: #000 !important;
+  }
+
+  /* Page headings get a Luna title bar */
+  h1, .header-name, .main-heading {
+    background: linear-gradient(to bottom, #0058EE 0%, #3593FF 8%, #0054E3 24%, #005BF5 66%, #0040AB 94%, #003092 100%) !important;
+    color: #FFF !important;
+    font-family: "Trebuchet MS", Tahoma, sans-serif !important;
+    font-weight: bold !important;
+    padding: 4px 10px !important;
+    border-radius: 6px 6px 0 0 !important;
+    text-shadow: 1px 1px 0 #0F1089 !important;
+  }
+
+  /* XP push buttons */
+  button:not(.ghost-button):not([type="image"]):not(.tab-button),
+  input[type="button"], input[type="submit"], input[type="reset"], select, menulist {
+    appearance: none !important;
+    background: linear-gradient(to bottom, #FFFFFF 0%, #ECEBE6 86%, #D6D0C5 100%) !important;
+    color: #000 !important;
+    border: 1px solid #003C74 !important;
+    border-radius: 3px !important;
+    font-family: Tahoma, sans-serif !important;
+  }
+  button:not(.ghost-button):hover, input[type="button"]:hover, select:hover {
+    box-shadow: inset 0 0 0 2px #F8B636 !important;
+  }
+
+  /* XP text fields */
+  input[type="text"], input[type="search"], input[type="url"], input[type="email"],
+  input[type="number"], input[type="password"], textarea, search-textbox {
+    appearance: none !important;
+    background: #FFF !important;
+    color: #000 !important;
+    border: 1px solid #7F9DB9 !important;
+    border-radius: 0 !important;
+  }
+
+  /* Settings side menu / add-on category list: XP Explorer blue task pane */
+  #categories, categories-box, .navigation, moz-page-nav {
+    background: linear-gradient(to bottom, #7BA2E7 0%, #6375D6 100%) !important;
+    border-radius: 0 !important;
+    padding: 10px 8px !important;
+  }
+  #categories > *, #categories .category, #categories button,
+  categories-box button, categories-box .category {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: #FFF !important;
+    font-weight: normal !important;
+    border-radius: 3px !important;
+  }
+  #categories > *:hover, #categories .category:hover, #categories button:hover,
+  categories-box button:hover {
+    background: rgba(255, 255, 255, 0.18) !important;
+    text-decoration: underline !important;
+    box-shadow: none !important;
+  }
+  #categories > .category[selected], #categories .category[selected], #categories button[selected],
+  categories-box button[selected], .category[selected] {
+    background: #FFF !important;
+    color: #215DC6 !important;
+    font-weight: bold !important;
+    border: 1px solid #FFF !important;
+  }
+  .card, addon-card, .addon.card, groupbox, .info-box, .tab-content {
+    background: #FFF !important;
+    border: 1px solid #ACA899 !important;
+    border-radius: 3px !important;
+    box-shadow: none !important;
+  }
+}

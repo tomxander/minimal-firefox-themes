@@ -1,0 +1,6 @@
+{
+    "description":  "Luna 2026 with traffic-light buttons, a centred title, Safari-style address bar and Mac menus.",
+    "name":  "Luna 2026 + Mac",
+    "menubar":  true,
+    "order":  3
+}

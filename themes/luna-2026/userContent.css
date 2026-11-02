@@ -1,0 +1,202 @@
+/* "Luna 2026" — page content. Works together with userChrome.css.
+   The XP Classic version is saved in the "xp-classic" folder. */
+
+/* ---------- Every website: subtle scrollbars, accent text selection ---------- */
+:root {
+  scrollbar-color: #B9C3D6 transparent !important;
+}
+::selection {
+  background: #2563DB !important;
+  color: #FFF !important;
+}
+
+/* ---------- New tab / home page: Bliss, redrawn smoother ---------- */
+@-moz-document url("about:newtab"), url("about:home"), url-prefix("about:newtab"), url-prefix("about:home") {
+  :root, body {
+    --newtab-background-color: transparent !important;
+    --newtab-background-color-secondary: rgba(255, 255, 255, 0.72) !important;
+    --newtab-text-primary-color: #1B1B1F !important;
+    --newtab-text-secondary-color: #5F6170 !important;
+    --newtab-element-hover-color: rgba(255, 255, 255, 0.9) !important;
+    --newtab-element-active-color: #FFF !important;
+    --newtab-element-secondary-color: rgba(255, 255, 255, 0.6) !important;
+    --newtab-border-color: rgba(255, 255, 255, 0.6) !important;
+    --newtab-primary-action-background: #2563DB !important;
+    --newtab-primary-element-hover-color: #1F55C4 !important;
+    --newtab-wordmark-color: #FFF !important;
+    --newtab-search-icon-color: #5F6170 !important;
+    --newtab-overlay-color: rgba(10, 20, 50, 0.3) !important;
+    --border-radius-small: 8px !important;
+    --border-radius-medium: 12px !important;
+    --border-radius-large: 16px !important;
+    color-scheme: light !important;
+    font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif !important;
+  }
+
+  html {
+    min-height: 100% !important;
+    background:
+      radial-gradient(ellipse 28% 9% at 24% 20%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 100%),
+      radial-gradient(ellipse 34% 10% at 70% 26%, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%),
+      radial-gradient(ellipse 40% 8% at 48% 42%, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 100%),
+      /* the hill, with a soft edge instead of a hard line */
+      radial-gradient(ellipse 100% 50% at 38% 110%, #7CC94A 0%, #5DB035 38%, #43951F 62%, #3A8A1A 70%, rgba(58,138,26,0) 74%),
+      radial-gradient(ellipse 85% 44% at 94% 114%, #6BBD3C 0%, #4FA128 50%, #3F8C1D 64%, rgba(63,140,29,0) 69%),
+      /* the sky */
+      linear-gradient(180deg, #2E6FDB 0%, #4A8BE6 28%, #7DB0F0 52%, #B6D4F7 72%, #DCEBFB 100%) !important;
+    background-attachment: fixed !important;
+  }
+  body, .outer-wrapper, main, .non-collapsible-section, .body-wrapper {
+    background: transparent !important;
+  }
+
+  h1, h2, h3, .section-title, .section-title span, .section-top-bar *, .wordmark, .logo-and-wordmark * {
+    color: #FFF !important;
+    fill: #FFF !important;
+    text-shadow: 0 1px 3px rgba(10, 30, 80, 0.35) !important;
+    font-weight: 600 !important;
+  }
+
+  /* Search box: frosted pill */
+  .search-handoff-button, .search-inner-wrapper input, #newtab-search-text, .fake-textbox {
+    background-color: rgba(255, 255, 255, 0.92) !important;
+    color: #1B1B1F !important;
+    border: 1px solid rgba(255, 255, 255, 0.7) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 24px rgba(10, 30, 80, 0.18) !important;
+  }
+
+  /* Shortcut tiles: glass squares */
+  .top-site-outer .tile, .top-site-outer .top-site-inner > a .tile {
+    background: rgba(255, 255, 255, 0.78) !important;
+    backdrop-filter: blur(14px) saturate(1.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.7) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 6px 18px rgba(10, 30, 80, 0.16) !important;
+  }
+  .top-site-outer:hover .tile { background: #FFF !important; transform: translateY(-1px); }
+  .top-site-outer .title, .top-site-outer .title span {
+    color: #FFF !important;
+    text-shadow: 0 1px 3px rgba(10, 30, 80, 0.5) !important;
+  }
+
+  /* Story cards & widgets: frosted glass panels */
+  .card-outer, .ds-card, .ds-card-grid > *, .widget, [class*="widget"] > article,
+  .weather, .focus-timer, .lists-widget, .world-clock, .card-wrapper, article {
+    background: rgba(255, 255, 255, 0.78) !important;
+    backdrop-filter: blur(18px) saturate(1.4) !important;
+    color: #1B1B1F !important;
+    border: 1px solid rgba(255, 255, 255, 0.7) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 24px rgba(10, 30, 80, 0.16) !important;
+    overflow: hidden;
+  }
+  .card-outer *, .ds-card *, .widget *, article *,
+  .card-outer :is(h1, h2, h3, h4, .title, .ds-heading),
+  .ds-card :is(h1, h2, h3, h4, .title, .ds-heading),
+  article :is(h1, h2, h3, h4, .title) {
+    color: #1B1B1F !important;
+    fill: #1B1B1F !important;
+    text-shadow: none !important;
+  }
+  .card-outer img, .ds-card img { border-radius: 12px !important; }
+}
+
+/* ---------- Firefox's own pages (settings, add-ons, downloads, ...) ---------- */
+@-moz-document url-prefix("about:preferences"), url-prefix("about:settings"), url-prefix("about:addons"),
+               url-prefix("about:downloads"), url-prefix("about:support"), url-prefix("about:config"),
+               url-prefix("about:profiles"), url-prefix("about:logins"), url-prefix("about:protections"),
+               url-prefix("about:processes"), url-prefix("about:certificate"), url-prefix("about:policies"),
+               url-prefix("about:sessionrestore"), url-prefix("about:welcome") {
+  :root, body {
+    color-scheme: light !important;
+    --background-color-canvas: #F6F5F1 !important;
+    --background-color-box: #FFF !important;
+    --text-color: #1B1B1F !important;
+    --text-color-deemphasized: #5F6170 !important;
+    --border-color: rgba(0, 0, 0, 0.1) !important;
+    --border-color-interactive: rgba(0, 0, 0, 0.2) !important;
+    --color-accent-primary: #2563DB !important;
+    --color-accent-primary-hover: #1F55C4 !important;
+    --color-accent-primary-active: #1A4AAE !important;
+    --link-color: #2563DB !important;
+    --border-radius-small: 6px !important;
+    --border-radius-medium: 10px !important;
+    --border-radius-large: 14px !important;
+    --button-border-radius: 8px !important;
+    --button-background-color: #FFF !important;
+    --button-background-color-hover: #F2F4F8 !important;
+    --button-background-color-active: #E7EAF0 !important;
+    --button-text-color: #1B1B1F !important;
+    --button-border-color: rgba(0, 0, 0, 0.14) !important;
+    --button-background-color-primary: #2563DB !important;
+    --button-text-color-primary: #FFF !important;
+    --focus-outline-color: #2563DB !important;
+    --in-content-page-background: #F6F5F1 !important;
+    --in-content-page-color: #1B1B1F !important;
+    --in-content-box-background: #FFF !important;
+    --in-content-box-border-color: rgba(0, 0, 0, 0.1) !important;
+    --in-content-text-color: #1B1B1F !important;
+    --in-content-accent-color: #2563DB !important;
+    --in-content-item-selected: #2563DB !important;
+    --in-content-item-selected-text: #FFF !important;
+    --in-content-button-background: #FFF !important;
+    --in-content-button-background-hover: #F2F4F8 !important;
+    --in-content-button-border-color: rgba(0, 0, 0, 0.14) !important;
+    --in-content-primary-button-background: #2563DB !important;
+    --in-content-primary-button-text-color: #FFF !important;
+    --in-content-border-color: rgba(0, 0, 0, 0.1) !important;
+    --in-content-link-color: #2563DB !important;
+    font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif !important;
+  }
+  html, body { background: #F6F5F1 !important; color: #1B1B1F !important; }
+
+  h1, .header-name, .main-heading {
+    font-family: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif !important;
+    font-weight: 600 !important;
+    color: #1B1B1F !important;
+  }
+
+  /* Side navigation: a soft version of XP's blue Explorer pane */
+  #categories, categories-box, .navigation, moz-page-nav {
+    background: linear-gradient(180deg, #EAF1FD 0%, #E1EAFB 100%) !important;
+    border-radius: 14px !important;
+    padding: 8px !important;
+    margin: 8px !important;
+    border: 1px solid rgba(37, 99, 219, 0.1) !important;
+  }
+  #categories > *, #categories .category, #categories button,
+  categories-box button, categories-box .category {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: #24407A !important;
+    border-radius: 8px !important;
+    font-weight: normal !important;
+  }
+  #categories > *:hover, #categories .category:hover, #categories button:hover,
+  categories-box button:hover {
+    background: rgba(255, 255, 255, 0.7) !important;
+  }
+  #categories > .category[selected], #categories .category[selected], #categories button[selected],
+  categories-box button[selected], .category[selected] {
+    background: #FFF !important;
+    color: #2563DB !important;
+    font-weight: 600 !important;
+    box-shadow: 0 1px 3px rgba(10, 30, 80, 0.12) !important;
+  }
+
+  input[type="text"], input[type="search"], input[type="url"], input[type="email"],
+  input[type="number"], input[type="password"], textarea, search-textbox {
+    background: #FFF !important;
+    color: #1B1B1F !important;
+    border: 1px solid rgba(0, 0, 0, 0.16) !important;
+    border-radius: 8px !important;
+  }
+  .card, addon-card, .addon.card, groupbox, .info-box {
+    background: #FFF !important;
+    border: 1px solid rgba(0, 0, 0, 0.07) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  }
+}

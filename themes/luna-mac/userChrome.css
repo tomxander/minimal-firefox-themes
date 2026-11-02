@@ -1,0 +1,618 @@
+/* "Luna 2026" — Windows XP's look, redesigned as if it shipped in 2026.
+   Browser frame. Page styling lives in userContent.css next to this file.
+   The original XP Classic version is saved in the "xp-classic" folder:
+   copy its two files back over these to switch back.
+   To undo everything: delete this "chrome" folder and user.js, then restart Firefox. */
+
+/* ---------- Design tokens ---------- */
+:root {
+  --l-font: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --l-font-display: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+
+  --l-accent: #2563DB;
+  --l-accent-hover: #1F55C4;
+  --l-accent-soft: #E8EFFD;
+  --l-green: #1FA34A;
+  --l-red: #E5483A;
+  --l-orange: #F59E0B;
+
+  --l-title: linear-gradient(180deg, #3D7FEC 0%, #2A67DD 50%, #2058C8 100%);
+  --l-title-inactive: linear-gradient(180deg, #BCCCEC 0%, #AABDE6 100%);
+  --l-strip: #EEEBE3;      /* menu bar + tab strip: XP beige, softened */
+  --l-toolbar: #FAF9F6;    /* toolbar + selected tab */
+  --l-line: rgba(0, 0, 0, 0.08);
+  --l-line-strong: rgba(0, 0, 0, 0.14);
+  --l-text: #1B1B1F;
+  --l-text-muted: #5F6170;
+  --l-hover: rgba(0, 0, 0, 0.055);
+  --l-press: rgba(0, 0, 0, 0.1);
+  --l-shadow-popup: 0 10px 30px rgba(15, 30, 70, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.06);
+
+  /* Firefox theme variables (override the active theme) */
+  --toolbar-bgcolor: var(--l-toolbar) !important;
+  --toolbar-color: var(--l-text) !important;
+  --toolbar-field-background-color: #FFF !important;
+  --toolbar-field-focus-background-color: #FFF !important;
+  --toolbar-field-color: var(--l-text) !important;
+  --toolbar-field-focus-color: var(--l-text) !important;
+  --toolbar-field-border-color: var(--l-line-strong) !important;
+  --toolbar-field-focus-border-color: var(--l-accent) !important;
+  --toolbarbutton-border-radius: 6px !important;
+  --toolbarbutton-hover-background: var(--l-hover) !important;
+  --toolbarbutton-active-background: var(--l-press) !important;
+  --tab-border-radius: 8px !important;
+  --tab-selected-bgcolor: var(--l-toolbar) !important;
+  --tab-selected-textcolor: var(--l-text) !important;
+  --chrome-content-separator-color: var(--l-line) !important;
+  --panel-background: #FFF !important;
+  --panel-color: var(--l-text) !important;
+  --panel-border-color: var(--l-line) !important;
+  --panel-border-radius: 10px !important;
+  --arrowpanel-background: #FFF !important;
+  --arrowpanel-color: var(--l-text) !important;
+  --arrowpanel-border-color: var(--l-line) !important;
+  --arrowpanel-border-radius: 12px !important;
+  --panel-item-hover-bgcolor: var(--l-accent-soft) !important;
+  --sidebar-background-color: #F6F5F1 !important;
+  --sidebar-text-color: var(--l-text) !important;
+  --sidebar-border-color: var(--l-line) !important;
+  --lwt-header-image: none !important;
+  --lwt-additional-images: none !important;
+  --tabpanel-background-color: #FFF !important;
+  --focus-outline-color: var(--l-accent) !important;
+}
+
+/* ---------- Typography ---------- */
+#navigator-toolbox,
+#navigator-toolbox *,
+menupopup, menuitem, menu, menulist, panel, panelview, tooltip,
+.subviewbutton, .panel-header,
+#sidebar-box, #sidebar-main, #sidebar-header, findbar, findbar *,
+#statuspanel-label, notification-message {
+  font-family: var(--l-font) !important;
+}
+#navigator-toolbox, menupopup, panel { font-size: 12px !important; }
+
+/* ---------- Whole top area ---------- */
+#navigator-toolbox {
+  background: var(--l-toolbar) !important;
+  background-image: none !important;
+  border-bottom: 1px solid var(--l-line) !important;
+}
+
+/* ---------- Title bar (tab strip, when the menu bar is off) ---------- */
+#TabsToolbar {
+  background: var(--l-title) !important;
+  color: #FFF !important;
+  padding-top: 4px !important;
+  padding-left: 6px !important;
+}
+#TabsToolbar:-moz-window-inactive { background: var(--l-title-inactive) !important; }
+#TabsToolbar::before {
+  content: "Mozilla Firefox";
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 0 16px 0 24px;
+  background: url("chrome://branding/content/icon32.png") no-repeat left center / 16px 16px;
+  font: 600 13px var(--l-font-display) !important;
+  color: #FFF;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  white-space: nowrap;
+  pointer-events: none;
+}
+#TabsToolbar:-moz-window-inactive::before { color: #F4F7FD; text-shadow: none; }
+#TabsToolbar toolbarbutton:not(.titlebar-button) { fill: #FFF !important; color: #FFF !important; }
+#TabsToolbar toolbarbutton:not(.titlebar-button):hover > :is(.toolbarbutton-icon, .toolbarbutton-badge-stack) {
+  background: rgba(255, 255, 255, 0.18) !important;
+  border-radius: 6px !important;
+}
+
+/* ---------- Window buttons: XP shapes, 2026 finish ---------- */
+.titlebar-buttonbox { margin-right: 8px !important; align-items: center !important; gap: 6px !important; }
+.titlebar-button > .toolbarbutton-icon { display: none !important; }
+.titlebar-button::before,
+.titlebar-button::after { content: none !important; display: none !important; }
+.titlebar-button {
+  --l-cap-bg: rgba(255, 255, 255, 0.14);
+  --l-cap-bg-hover: rgba(255, 255, 255, 0.28);
+  appearance: none !important;
+  flex: none !important;
+  width: 30px !important;
+  min-width: 30px !important;
+  height: 22px !important;
+  min-height: 22px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font: 0/0 sans-serif !important;
+  border: 1px solid rgba(255, 255, 255, 0.38) !important;
+  border-radius: 6px !important;
+  background: var(--l-glyph) center / 11px 11px no-repeat, var(--l-cap-bg) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+  transition: background-color 120ms ease !important;
+}
+.titlebar-button:hover {
+  background: var(--l-glyph) center / 11px 11px no-repeat, var(--l-cap-bg-hover) !important;
+}
+.titlebar-min {
+  --l-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 7.5 H10' stroke='white' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+.titlebar-max {
+  --l-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Crect x='2' y='2' width='8' height='8' rx='1.8' fill='none' stroke='white' stroke-width='1.4'/%3E%3C/svg%3E");
+}
+.titlebar-restore {
+  --l-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Crect x='1.5' y='3.5' width='7' height='7' rx='1.5' fill='none' stroke='white' stroke-width='1.3'/%3E%3Cpath d='M3.6 1.8 H8.9 A1.4 1.4 0 0 1 10.3 3.2 V8.4' fill='none' stroke='white' stroke-width='1.3' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+.titlebar-close {
+  --l-cap-bg: var(--l-red);
+  --l-cap-bg-hover: #F2604F;
+  --l-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.8 2.8 L9.2 9.2 M9.2 2.8 L2.8 9.2' stroke='white' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+:is(#TabsToolbar, #toolbar-menubar):-moz-window-inactive .titlebar-button { opacity: 0.75 !important; }
+:is(#TabsToolbar, #toolbar-menubar):-moz-window-inactive .titlebar-close { --l-cap-bg: #E9978F; }
+
+/* ---------- Tabs: soft rounded cards ---------- */
+.tabbrowser-tab { padding-inline: 2px !important; }
+.tabbrowser-tab .tab-background {
+  margin-block: 4px 0 !important;
+  border: none !important;
+  border-radius: 8px 8px 0 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.tabbrowser-tab:hover .tab-background:not([selected]) {
+  background: rgba(255, 255, 255, 0.55) !important;
+}
+.tabbrowser-tab .tab-background:is([selected], [multiselected]) {
+  background: var(--l-toolbar) !important;
+  box-shadow: inset 0 2px 0 var(--l-orange), 0 0 0 1px var(--l-line), 0 -1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+.tabbrowser-tab .tab-label { color: var(--l-text) !important; }
+.tabbrowser-tab:not([selected]) .tab-label { color: var(--l-text-muted) !important; }
+.tab-close-button { border-radius: 5px !important; fill: var(--l-text-muted) !important; }
+.tab-close-button:hover { background: var(--l-hover) !important; fill: var(--l-text) !important; }
+
+/* ---------- Toolbars ---------- */
+#nav-bar, #PersonalToolbar {
+  background: var(--l-toolbar) !important;
+  color: var(--l-text) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+#nav-bar { padding-block: 4px !important; }
+#PersonalToolbar { padding-bottom: 4px !important; }
+#nav-bar toolbarbutton, #PersonalToolbar toolbarbutton {
+  fill: #3A5BA0 !important;
+  color: var(--l-text) !important;
+}
+#PersonalToolbar .bookmark-item { border-radius: 6px !important; padding: 3px 6px !important; }
+#PersonalToolbar .bookmark-item:hover { background: var(--l-hover) !important; }
+
+/* ---------- Toolbar icons: XP's colours, flat 2026 drawing ---------- */
+#back-button {
+  list-style-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='9' fill='%231FA34A'/%3E%3Cpath d='M11.5 6 L7.5 10 L11.5 14' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+}
+#forward-button {
+  list-style-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='9' fill='%231FA34A'/%3E%3Cpath d='M8.5 6 L12.5 10 L8.5 14' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+}
+#reload-button {
+  list-style-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M15.5 10 A5.5 5.5 0 1 1 13.9 6.1' fill='none' stroke='%231FA34A' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M14.6 2.6 V6.6 H10.6' fill='none' stroke='%231FA34A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+}
+#stop-button {
+  list-style-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='9' fill='%23E5483A'/%3E%3Cpath d='M7 7 L13 13 M13 7 L7 13' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+}
+#home-button {
+  list-style-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M3 9.5 L10 3.5 L17 9.5' fill='none' stroke='%23E5483A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M5 9 V16.5 H15 V9' fill='none' stroke='%232563DB' stroke-width='1.8' stroke-linejoin='round'/%3E%3Crect x='8.5' y='12' width='3' height='4.5' rx='.8' fill='%232563DB'/%3E%3C/svg%3E") !important;
+}
+#downloads-button, #downloads-indicator-icon {
+  list-style-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 3 V12 M6 8.5 L10 12.5 L14 8.5' fill='none' stroke='%231FA34A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M4 16 H16' stroke='%232563DB' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+}
+#sidebar-button {
+  list-style-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 2.5 L12.3 7.2 L17.5 7.9 L13.7 11.5 L14.6 16.6 L10 14.2 L5.4 16.6 L6.3 11.5 L2.5 7.9 L7.7 7.2 Z' fill='%23F5B70A' stroke='%23D99A00' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+}
+#nav-bar toolbarbutton[disabled] > .toolbarbutton-icon {
+  filter: grayscale(1) !important;
+  opacity: 0.35 !important;
+}
+.bookmark-item[container],
+#PlacesToolbarItems .bookmark-item[container] {
+  list-style-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M2 6 A1.5 1.5 0 0 1 3.5 4.5 H7.5 L9 6 H16.5 A1.5 1.5 0 0 1 18 7.5 V15 A1.5 1.5 0 0 1 16.5 16.5 H3.5 A1.5 1.5 0 0 1 2 15 Z' fill='%23F7C948'/%3E%3Cpath d='M2 8.5 H18' stroke='%23E2AC1F'/%3E%3C/svg%3E") !important;
+}
+
+/* ---------- Address box & dropdown ---------- */
+:root, #urlbar, .urlbar, #searchbar {
+  --urlbar-height: 32px !important;
+  --urlbar-container-padding-block: 2px !important;
+  --urlbar-background-color: #FFF !important;
+  --urlbar-background-color-focus: #FFF !important;
+  --urlbar-background-border: 1px solid var(--l-line-strong) !important;
+  --urlbar-background-border-focused: 1px solid var(--l-accent) !important;
+  --urlbar-background-border-open: 1px solid var(--l-line) !important;
+  --urlbar-background-outline-focused: 3px solid rgba(37, 99, 219, 0.18) !important;
+  --urlbar-background-box-shadow-open: var(--l-shadow-popup) !important;
+  --urlbar-background-overhang-open: 4px !important;
+  --urlbar-input-growth-open-inline: 0px !important;
+  --urlbar-input-growth-open-block: 0px !important;
+  --urlbar-input-container-outline-open: none !important;
+  --urlbar-input-container-outline-open-focused: none !important;
+  --urlbar-background-border-radius: 9px !important;
+  --urlbar-background-border-top-radius-open: 12px !important;
+  --urlbar-border-radius: 8px !important;
+  --urlbar-inner-border-radius: 6px !important;
+  --urlbarview-border-radius: 12px !important;
+  --urlbarview-row-border-radius: 7px !important;
+  --urlbarview-icon-border-radius: 4px !important;
+  --urlbarview-margin-inline: 0px !important;
+  --urlbarview-margin-block: 0px !important;
+  --urlbarview-row-gutter: 4px !important;
+  --urlbarview-results-padding: 4px !important;
+  --urlbarview-row-padding-block: 4px !important;
+  --urlbarview-row-padding-inline: 8px !important;
+  --urlbarview-row-min-height: 32px !important;
+  --urlbarview-small-font-size: 11px !important;
+  --urlbarview-background-color-selected: var(--l-accent) !important;
+  --urlbarview-text-color-selected: #FFF !important;
+  --urlbarview-background-color-hover: var(--l-accent-soft) !important;
+  --urlbarview-text-color-hover: var(--l-text) !important;
+  --urlbarview-separator-color: var(--l-line) !important;
+  --urlbarview-text-color-secondary: var(--l-text-muted) !important;
+  --urlbarview-text-color-action: var(--l-accent) !important;
+  --urlbar-box-background-color: transparent !important;
+  --urlbar-box-background-color-hover: var(--l-hover) !important;
+  --urlbar-box-background-color-active: var(--l-press) !important;
+  --urlbar-box-text-color: var(--l-text) !important;
+  --toolbar-field-border-color: var(--l-line-strong) !important;
+  --toolbar-field-border-color-focus: var(--l-accent) !important;
+  --toolbar-field-text-color: var(--l-text) !important;
+  --toolbar-field-text-color-focus: var(--l-text) !important;
+  --chrome-box-shadow: rgba(15, 30, 70, 0.18) !important;
+}
+#urlbar .urlbarView, #urlbar .urlbarView-row, #urlbar .urlbarView-row-inner {
+  font-family: var(--l-font) !important;
+  font-size: 12px !important;
+  color: var(--l-text) !important;
+}
+#urlbar .urlbarView-url { color: var(--l-accent) !important; }
+#urlbar .urlbarView-row:is([selected], [aria-selected="true"]) :is(.urlbarView-title, .urlbarView-url, .urlbarView-action, .urlbarView-title-separator, .urlbarView-secondary) {
+  color: #FFF !important;
+}
+#urlbar ::selection { background: var(--l-accent) !important; color: #FFF !important; }
+#urlbar-searchmode-switcher, .searchmode-switcher {
+  border-radius: 6px !important;
+  background: transparent !important;
+  border: none !important;
+}
+#urlbar-searchmode-switcher:hover, .searchmode-switcher:hover { background: var(--l-hover) !important; }
+#urlbar .search-one-offs {
+  background: transparent !important;
+  border-top: 1px solid var(--l-line) !important;
+  padding: 6px 8px !important;
+}
+#urlbar .searchbar-engine-one-off-item { border-radius: 6px !important; }
+#urlbar .searchbar-engine-one-off-item:is(:hover, [selected]) { background: var(--l-accent-soft) !important; }
+
+/* ---------- Menus ---------- */
+menupopup {
+  --panel-background: #FFF !important;
+  --panel-color: var(--l-text) !important;
+  --panel-border-color: var(--l-line) !important;
+  --panel-border-radius: 10px !important;
+  --panel-padding: 4px !important;
+  --panel-shadow: var(--l-shadow-popup) !important;
+  --menuitem-border-radius: 6px !important;
+  --menuitem-padding: 6px 12px !important;
+}
+menupopup menuitem, menupopup menu { border-radius: 6px !important; color: var(--l-text) !important; }
+menupopup menuitem[_moz-menuactive], menupopup menu[_moz-menuactive] {
+  background: var(--l-accent) !important;
+  color: #FFF !important;
+}
+menupopup menuitem[disabled] { color: #A3A5AE !important; }
+menuseparator { border-color: var(--l-line) !important; margin-inline: 8px !important; }
+
+/* ---------- Panels (☰ menu, extensions, downloads) ---------- */
+panel, panelview, .panel-subview-body { background: #FFF !important; color: var(--l-text) !important; }
+.panel-header { background: transparent !important; color: var(--l-text) !important; }
+.subviewbutton { border-radius: 6px !important; color: var(--l-text) !important; }
+.subviewbutton:not([disabled]):hover, .subviewbutton[_moz-menuactive] {
+  background: var(--l-accent-soft) !important;
+  color: var(--l-text) !important;
+}
+toolbarseparator { border-color: var(--l-line) !important; }
+
+/* ---------- Tooltips: XP's pale yellow, softened ---------- */
+tooltip {
+  appearance: none !important;
+  background: #FFFCEB !important;
+  color: var(--l-text) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border-radius: 6px !important;
+  padding: 4px 8px !important;
+  font-size: 12px !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* ---------- Link-preview text ---------- */
+#statuspanel-label {
+  background: #FFF !important;
+  color: var(--l-text) !important;
+  border: 1px solid var(--l-line) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  font-size: 12px !important;
+  margin: 0 0 4px 4px !important;
+}
+
+/* ---------- Status bar: slim, quiet ---------- */
+:root:not([inFullscreen], [popup-window], [taskbartab]) > body::after {
+  content: "Internet";
+  order: 9999;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  height: 24px;
+  padding: 0 14px 0 0;
+  background:
+    url("chrome://global/skin/icons/defaultFavicon.svg") right 70px center / 13px 13px no-repeat,
+    var(--l-strip);
+  border-top: 1px solid var(--l-line);
+  color: var(--l-text-muted);
+  font: 11.5px var(--l-font);
+  -moz-context-properties: fill;
+  fill: var(--l-text-muted);
+  pointer-events: none;
+}
+
+/* ---------- Find bar ---------- */
+findbar {
+  background: var(--l-toolbar) !important;
+  color: var(--l-text) !important;
+  border-top: 1px solid var(--l-line) !important;
+}
+findbar .findbar-textbox {
+  background: #FFF !important;
+  color: var(--l-text) !important;
+  border: 1px solid var(--l-line-strong) !important;
+  border-radius: 6px !important;
+}
+findbar toolbarbutton, findbar button { border-radius: 6px !important; }
+
+/* ---------- Sidebar ---------- */
+#sidebar-box, #sidebar-main, #sidebar-header { background: #F6F5F1 !important; color: var(--l-text) !important; }
+#sidebar-splitter { background: transparent !important; border-color: var(--l-line) !important; }
+
+/* ---------- Notification bars ---------- */
+notification-message {
+  border-radius: 8px !important;
+  border: 1px solid var(--l-line) !important;
+  margin: 4px 8px !important;
+}
+
+/* =====================================================================
+   Layout with the menu bar on (right-click the tab strip > Menu Bar):
+     [ title bar:  Mozilla Firefox                    –  ▢  ✕ ]
+     [ File  Edit  View  History  Bookmarks  Tools  Help        ]
+     [ tabs                                                     ]
+     [ ‹ › ⟳   [ address                              ]         ]
+   ===================================================================== */
+:root:has(#toolbar-menubar:not([autohide], [collapsed])) {
+  & #toolbar-menubar {
+    position: relative !important;
+    padding-top: 36px !important;
+    min-height: 64px !important;
+    align-items: flex-end !important;
+    background:
+      var(--l-title) 0 0 / 100% 36px no-repeat,
+      linear-gradient(var(--l-strip), var(--l-strip)) !important;
+    border: none !important;
+  }
+  & #toolbar-menubar:-moz-window-inactive {
+    background:
+      var(--l-title-inactive) 0 0 / 100% 36px no-repeat,
+      linear-gradient(var(--l-strip), var(--l-strip)) !important;
+  }
+  & #toolbar-menubar::before {
+    content: "Mozilla Firefox";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    padding-left: 38px;
+    background: url("chrome://branding/content/icon32.png") no-repeat 14px center / 16px 16px;
+    font: 600 13px var(--l-font-display) !important;
+    color: #FFF;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+  }
+  & #toolbar-menubar:-moz-window-inactive::before { color: #F4F7FD; text-shadow: none; }
+  & #toolbar-menubar > .titlebar-buttonbox-container {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    height: 36px !important;
+    align-items: center !important;
+  }
+  & #toolbar-menubar > .titlebar-spacer { display: none !important; }
+  & #menubar-items { margin: 2px 0 2px 8px !important; }
+  & #main-menubar > menu {
+    padding: 3px 10px !important;
+    margin: 0 1px !important;
+    color: var(--l-text) !important;
+    font: 12px var(--l-font) !important;
+    border-radius: 6px !important;
+    appearance: none !important;
+  }
+  & #main-menubar > menu:is([_moz-menuactive], [open]) {
+    background: rgba(255, 255, 255, 0.75) !important;
+    color: var(--l-text) !important;
+    box-shadow: 0 0 0 1px var(--l-line) !important;
+  }
+
+  & #TabsToolbar {
+    background: var(--l-strip) !important;
+    color: var(--l-text) !important;
+    padding: 0 6px !important;
+  }
+  & #TabsToolbar::before { display: none !important; }
+  & #TabsToolbar toolbarbutton:not(.titlebar-button) {
+    fill: var(--l-text-muted) !important;
+    color: var(--l-text) !important;
+  }
+  & #TabsToolbar toolbarbutton:not(.titlebar-button):hover > :is(.toolbarbutton-icon, .toolbarbutton-badge-stack) {
+    background: var(--l-hover) !important;
+  }
+}
+
+/* =====================================================================
+   Mac touches: traffic-light buttons on the left, centred title,
+   Safari-style address bar and tabs, Mac-style menus, Inter font.
+   (Luna 2026 without these is saved in the "luna-2026" folder.)
+   ===================================================================== */
+:root {
+  --l-font: "SF Pro Text", Inter, "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --l-font-display: "SF Pro Display", Inter, "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+}
+
+/* --- Traffic lights: close, minimise, zoom — on the left --- */
+.titlebar-buttonbox-container { order: -1 !important; }
+.titlebar-buttonbox {
+  margin: 0 0 0 14px !important;
+  gap: 8px !important;
+}
+.titlebar-button {
+  width: 13px !important;
+  min-width: 13px !important;
+  height: 13px !important;
+  min-height: 13px !important;
+  border-radius: 50% !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.18) !important;
+  box-shadow: none !important;
+  background: var(--l-light) !important;
+}
+.titlebar-close { order: 0 !important; --l-light: #FF5F57; }
+.titlebar-min { order: 1 !important; --l-light: #FEBC2E; }
+.titlebar-max, .titlebar-restore { order: 2 !important; --l-light: #28C840; }
+/* Symbols appear when hovering over the group, like on a Mac */
+.titlebar-buttonbox:hover .titlebar-button {
+  background: var(--l-mac-glyph) center / 9px 9px no-repeat, var(--l-light) !important;
+}
+.titlebar-close {
+  --l-mac-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2.6 2.6 L7.4 7.4 M7.4 2.6 L2.6 7.4' stroke='%234D0000' stroke-opacity='.7' stroke-width='1.3' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+.titlebar-min {
+  --l-mac-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 5 H8' stroke='%23985700' stroke-opacity='.8' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+.titlebar-max, .titlebar-restore {
+  --l-mac-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2.4 6.6 V2.4 H6.6 Z M7.6 3.4 V7.6 H3.4 Z' fill='%23006500' fill-opacity='.7'/%3E%3C/svg%3E");
+}
+.titlebar-button:hover:active { filter: brightness(0.85) !important; }
+/* Grey lights when the window is in the background, like a Mac */
+:is(#TabsToolbar, #toolbar-menubar):-moz-window-inactive .titlebar-button {
+  --l-light: #D3D3D7 !important;
+  opacity: 1 !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* --- Centred window title --- */
+:root:has(#toolbar-menubar:not([autohide], [collapsed])) #toolbar-menubar::before {
+  left: 0 !important;
+  right: 0 !important;
+  justify-content: center !important;
+  padding-left: 22px !important;
+  background-position: calc(50% - 62px) center !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+}
+:root:has(#toolbar-menubar:not([autohide], [collapsed])) #toolbar-menubar > .titlebar-buttonbox-container {
+  left: 0 !important;
+  right: auto !important;
+}
+:root:has(#toolbar-menubar:not([autohide], [collapsed])) #menubar-items { margin-left: 10px !important; }
+
+/* --- Safari-style address bar: centred, soft grey until clicked --- */
+#urlbar-container {
+  max-width: 760px !important;
+  margin-inline: auto !important;
+}
+:root, #urlbar, .urlbar {
+  --urlbar-height: 32px !important;
+  --urlbar-background-color: rgba(0, 0, 0, 0.05) !important;
+  --urlbar-background-border: 1px solid transparent !important;
+  --urlbar-background-border-radius: 10px !important;
+  --urlbar-border-radius: 10px !important;
+}
+#urlbar:not([focused], [open]) .urlbar-input { text-align: center !important; }
+#urlbar:not([focused], [open]):hover {
+  --urlbar-background-color: rgba(0, 0, 0, 0.075) !important;
+}
+
+/* --- Safari-style tabs: compact rounded pills --- */
+.tabbrowser-tab { padding-inline: 2px !important; }
+.tabbrowser-tab .tab-background {
+  margin-block: 5px 5px !important;
+  border-radius: 8px !important;
+}
+.tabbrowser-tab .tab-background:is([selected], [multiselected]) {
+  background: #FFF !important;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+.tabbrowser-tab .tab-content { justify-content: center !important; }
+#TabsToolbar { padding-bottom: 0 !important; }
+
+/* --- Mac-style menus: airy, rounded highlight --- */
+/* Windows 11 puts a see-through "Mica" backdrop behind every menu window
+   (dark, because Windows is in dark mode) and rounds the window and adds a
+   shadow itself. Fill the whole menu window with solid white, edge to edge,
+   so none of the backdrop shows; Windows supplies the corners and shadow. */
+menupopup, panel:not([type="arrow"]) {
+  appearance: none !important;
+  color-scheme: light !important;
+  --panel-background-color: #FFF !important;
+  --panel-text-color: var(--l-text) !important;
+  --panel-border-color: transparent !important;
+  --panel-border-radius: 0px !important;
+  --panel-box-shadow: none !important;
+  --panel-box-shadow-margin: 0px !important;
+  background: #FFF !important;
+}
+menupopup {
+  --panel-padding: 5px !important;
+  --menuitem-border-radius: 5px !important;
+  --menuitem-padding: 4px 10px !important;
+  --menu-arrow-opacity: 0.6 !important;
+}
+menupopup menuitem, menupopup menu { padding: 4px 10px !important; }
+menupopup :is(.menu-accel, .menu-iconic-accel, .menu-accel-container) { color: #8A8C96 !important; }
+menupopup :is(menuitem, menu)[_moz-menuactive] :is(.menu-accel, .menu-iconic-accel) { color: rgba(255, 255, 255, 0.85) !important; }
+menupopup, menupopup menuitem, menupopup menu, panel, .subviewbutton {
+  font-family: var(--l-font) !important;
+  font-size: 13px !important;
+}
+menupopup menuitem, menupopup menu { border-radius: 5px !important; min-height: 24px !important; }
+menupopup menuitem[_moz-menuactive], menupopup menu[_moz-menuactive] {
+  background: #2F7BF5 !important;
+  color: #FFF !important;
+}
+menuseparator { margin: 4px 10px !important; border-color: rgba(0, 0, 0, 0.1) !important; }
+.subviewbutton:not([disabled]):hover, .subviewbutton[_moz-menuactive] {
+  background: #2F7BF5 !important;
+  color: #FFF !important;
+  fill: #FFF !important;
+}
+
+/* Menu bar shown temporarily with Alt (menu bar otherwise hidden) */
+#toolbar-menubar {
+  background: var(--l-strip) !important;
+  color: var(--l-text) !important;
+}
+#toolbar-menubar > #menubar-items menu:is([_moz-menuactive], [open]) {
+  background: rgba(255, 255, 255, 0.75) !important;
+  border-radius: 6px !important;
+  color: var(--l-text) !important;
+}

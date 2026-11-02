@@ -1,0 +1,180 @@
+/* Minimal — graphite. Page content; works with userChrome.css.
+   Same tokens: graphite surfaces, warm text, no colour; a soft white-grey
+   marks focus and the current item. Two type sizes (13px pages); radius 4 / 8 / 12. */
+
+/* ---------- Every website: quiet scrollbars ---------- */
+:root {
+  scrollbar-color: rgba(143, 140, 134, 0.45) transparent !important;
+}
+
+/* ---------- New tab / home page: a blank sheet (type in the address bar) ---------- */
+@-moz-document url("about:newtab"), url("about:home"), url-prefix("about:newtab"), url-prefix("about:home") {
+  :root, body {
+    --newtab-background-color: #1C1C1B !important;
+    --newtab-text-primary-color: #E8E6E1 !important;
+    color-scheme: dark !important;
+  }
+  html, body { background: #1C1C1B !important; background-image: none !important; }
+  body > * { visibility: hidden !important; }
+}
+
+/* ---------- Firefox's own pages (settings, add-ons, downloads, ...) ---------- */
+@-moz-document url-prefix("about:preferences"), url-prefix("about:settings"), url-prefix("about:addons"),
+               url-prefix("about:downloads"), url-prefix("about:support"), url-prefix("about:config"),
+               url-prefix("about:profiles"), url-prefix("about:logins"), url-prefix("about:protections"),
+               url-prefix("about:processes"), url-prefix("about:certificate"), url-prefix("about:policies"),
+               url-prefix("about:sessionrestore"), url-prefix("about:welcome"),
+               url-prefix("about:firefoxview"), url-prefix("about:privatebrowsing"),
+               url-prefix("about:neterror"), url-prefix("about:certerror"), url-prefix("about:blocked"),
+               url-prefix("about:httpsonlyerror"), url-prefix("about:tabcrashed"), url-prefix("about:restartrequired"),
+               url-prefix("about:unloads"), url-prefix("about:translations"), url-prefix("about:editprofile"),
+               url-prefix("about:newprofile"), url-prefix("about:deleteprofile"), url-prefix("about:rights"),
+               url-prefix("about:license"), url-prefix("about:robots"), url-prefix("about:serviceworkers") {
+  :root, body {
+    color-scheme: dark !important;
+
+    /* Colour */
+    --background-color-canvas: #1C1C1B !important;
+    --background-color-box: #222220 !important;
+    --text-color: #E8E6E1 !important;
+    --text-color-deemphasized: #8F8C86 !important;
+    --border-color: transparent !important;
+    --border-color-card: transparent !important;
+    --border-color-interactive: transparent !important;
+    --color-accent-primary: rgba(255, 255, 255, 0.55) !important;
+    --color-accent-primary-hover: rgba(255, 255, 255, 0.7) !important;
+    --color-accent-primary-active: rgba(255, 255, 255, 0.85) !important;
+    --link-color: #E8E6E1 !important;
+    --focus-outline-color: rgba(255, 255, 255, 0.2) !important;
+
+    /* Radius: 4 / 8 / 12 */
+    --border-radius-small: 4px !important;
+    --border-radius-medium: 8px !important;
+    --border-radius-large: 12px !important;
+
+    /* Buttons: flat graphite; the primary one is a faint white tint */
+    --button-border-radius: 8px !important;
+    --button-background-color: #2C2C2A !important;
+    --button-background-color-hover: #33332F !important;
+    --button-background-color-active: #3A3A36 !important;
+    --button-text-color: #E8E6E1 !important;
+    --button-border-color: transparent !important;
+    --button-background-color-primary: rgba(255, 255, 255, 0.14) !important;
+    --button-text-color-primary: #FFF !important;
+
+    /* Older names for the same things */
+    --in-content-page-background: #1C1C1B !important;
+    --in-content-page-color: #E8E6E1 !important;
+    --in-content-box-background: #222220 !important;
+    --in-content-box-border-color: transparent !important;
+    --in-content-border-color: transparent !important;
+    --in-content-text-color: #E8E6E1 !important;
+    --in-content-accent-color: rgba(255, 255, 255, 0.2) !important;
+    --in-content-item-selected: #2C2C2A !important;
+    --in-content-item-selected-text: #FFF !important;
+    --in-content-button-background: #2C2C2A !important;
+    --in-content-button-background-hover: #33332F !important;
+    --in-content-button-border-color: transparent !important;
+    --in-content-primary-button-background: rgba(255, 255, 255, 0.14) !important;
+    --in-content-primary-button-text-color: #FFF !important;
+    --in-content-link-color: #E8E6E1 !important;
+
+    /* Type: one size for pages; hierarchy by weight */
+    --font-size-root: 13px !important;
+    font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif !important;
+    font-size: 13px !important;
+  }
+  html, body { background: #1C1C1B !important; color: #E8E6E1 !important; }
+  h1, h2, h3, .header-name, .main-heading { font-size: 13px !important; font-weight: 600 !important; }
+  a { text-decoration-color: rgba(232, 230, 225, 0.35) !important; }
+  hr, .separator, moz-card hr { display: none !important; }
+
+  .card, addon-card, .addon.card, groupbox, .info-box, moz-card {
+    background: #222220 !important;
+    border: none !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+  }
+  input[type="text"], input[type="search"], input[type="url"], input[type="email"],
+  input[type="number"], input[type="password"], textarea, search-textbox {
+    background: #2C2C2A !important;
+    color: #E8E6E1 !important;
+    border: 1px solid transparent !important;
+    border-radius: 8px !important;
+    min-height: 26px !important;
+  }
+  :is(input, textarea, search-textbox):focus-visible { border-width: var(--m-hair, 1px) !important; border-color: rgba(255, 255, 255, 0.2) !important; outline: none !important; }
+  button, select, menulist { min-height: 26px !important; }
+
+  /* Side navigation: plain links; the current section gets a soft grey marker */
+  moz-page-nav, moz-page-nav-button {
+    --page-nav-border-color: transparent !important;
+    --page-nav-hr-background-color: transparent !important;
+    --page-nav-button-background-color: transparent !important;
+    --page-nav-button-background-color-hover: rgba(255, 255, 255, 0.05) !important;
+    --page-nav-button-background-color-active: rgba(255, 255, 255, 0.09) !important;
+    --page-nav-button-background-color-selected: rgba(255, 255, 255, 0.06) !important;
+    --page-nav-button-text-color: #8F8C86 !important;
+    --page-nav-button-text-color-hover: #E8E6E1 !important;
+    --page-nav-button-text-color-active: #FFF !important;
+    --page-nav-button-text-color-selected: #FFF !important;
+    --page-nav-button-border-color: 1px solid transparent !important;
+    --page-nav-button-border-color-hover: transparent !important;
+    --page-nav-button-border-color-active: transparent !important;
+    --page-nav-button-indicator-background-color: rgba(255, 255, 255, 0.2) !important;
+    --page-nav-button-indicator-width: var(--m-hair, 1px) !important;
+    --page-nav-button-border-radius: 8px !important;
+    --button-background-color-ghost: transparent !important;
+    --button-background-color-ghost-hover: rgba(255, 255, 255, 0.05) !important;
+    --button-background-color-ghost-active: rgba(255, 255, 255, 0.09) !important;
+    --button-text-color-ghost: #8F8C86 !important;
+    --button-background-color-selected: rgba(255, 255, 255, 0.06) !important;
+    --button-text-color-selected: #FFF !important;
+  }
+  #categories > *, #categories .category, categories-box button {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: #8F8C86 !important;
+    border-radius: 8px !important;
+  }
+  #categories > :hover, categories-box button:hover { background: rgba(255, 255, 255, 0.05) !important; color: #E8E6E1 !important; }
+  #categories > [selected], categories-box button[selected] {
+    background: rgba(255, 255, 255, 0.06) !important;
+    color: #FFF !important;
+    font-weight: 600 !important;
+  }
+}
+
+/* One true device pixel at any display scaling, for accents on Firefox's pages */
+:root { --m-hair: 1px; }
+@media (min-resolution: 1.25dppx) { :root { --m-hair: 0.8px; } }
+@media (min-resolution: 1.5dppx)  { :root { --m-hair: 0.6667px; } }
+@media (min-resolution: 1.75dppx) { :root { --m-hair: 0.5715px; } }
+@media (min-resolution: 2dppx)    { :root { --m-hair: 0.5px; } }
+@-moz-document url-prefix("about:") {
+  :root { --focus-outline-width: var(--m-hair) !important; }
+  :focus-visible { outline-width: var(--m-hair) !important; }
+}
+/* Motion on Firefox's own pages: buttons, links, fields and the side menu ease
+   on hover and focus. Off when Windows' animation effects are off. */
+@-moz-document url-prefix("about:") {
+  @media (prefers-reduced-motion: no-preference) {
+    button, a, input, select, textarea, moz-page-nav-button, #categories > *, categories-box button {
+      transition: background-color 160ms cubic-bezier(0.2, 0, 0, 1), color 160ms cubic-bezier(0.2, 0, 0, 1),
+                  border-color 160ms cubic-bezier(0.2, 0, 0, 1) !important;
+    }
+  }
+}
+/* Private Browsing start page and error pages: no purple, no illustrations */
+@-moz-document url-prefix("about:privatebrowsing"), url-prefix("about:neterror"), url-prefix("about:certerror"),
+               url-prefix("about:blocked"), url-prefix("about:httpsonlyerror"), url-prefix("about:tabcrashed") {
+  html, html.private, body {
+    background: #1C1C1B !important;
+    background-image: none !important;
+    color: #E8E6E1 !important;
+  }
+  .logo-and-wordmark, .logo, .wordmark, .info-illustration, .container::before, .title { background-image: none !important; }
+  .title-text, h1 { font-size: 15px !important; font-weight: 600 !important; }
+  #errorShortDesc, .info-body, p, li { font-size: 13px !important; line-height: 1.55 !important; color: #E8E6E1 !important; }
+}
