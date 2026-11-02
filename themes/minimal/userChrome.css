@@ -1168,3 +1168,25 @@ sidebar-main {
     }
   }
 }
+
+/* =====================================================================
+   20. macOS: the window buttons are on the left (and native), so ☰ goes
+   to the right edge and the tab row leaves its slot there. Everything
+   about Windows caption buttons above is inert on a Mac.
+   ===================================================================== */
+@media (-moz-platform: macos) {
+  /* Room for the traffic lights at the start of the row; nothing after them */
+  #TabsToolbar > .titlebar-buttonbox-container {
+    margin-inline: 0 var(--m-gap) !important;
+    order: -1 !important;
+  }
+  .titlebar-buttonbox { padding: 0 !important; }
+  :root[inFullscreen] #TabsToolbar > .titlebar-buttonbox-container { display: none !important; }
+
+  /* ☰ at the right edge, same 28px row position; the tab strip ends before it */
+  #PanelUI-button { right: var(--m-edge) !important; }
+  #TabsToolbar { padding-inline-end: calc(var(--m-control) + var(--m-gap)) !important; }
+
+  /* The system font (SF) at the same size; Windows' Segoe is simply absent */
+  :root { --m-font: -apple-system, system-ui, sans-serif; }
+}

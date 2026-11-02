@@ -70,11 +70,7 @@ url-prefix("chrome://browser/content/sidebar/")` for the sidebar documents,
 
 ## Known gaps
 
-- **Mac.** The CSS was written and tested on Windows 11. On a Mac: the font falls back to the
-  system font (fine); the window buttons are on the left, so the ☰ placement
-  (`#PanelUI-button { position: fixed; right: ... }`, section 13) and the
-  `.titlebar-buttonbox-container` margin need a Mac variant; the Windows caption-button and
-  Mica rules are harmless. This is the first thing to do for a Mac version.
+- **Mac.** The CSS was written and tested on Windows 11. Section 20 of `themes/minimal/userChrome.css` is a `@media (-moz-platform: macos)` block that moves ☰ to the right edge and leaves room for the traffic lights; it has not been checked on a Mac yet. The Windows caption-button and Mica rules are inert there.
 - **Switcher** is Windows only.
 - **Installer.** A native Windows installer (C#, compiled with the .NET Framework `csc.exe`)
   existed; the exe and its sources were lost and it has not been rebuilt. It needs rebuilding
