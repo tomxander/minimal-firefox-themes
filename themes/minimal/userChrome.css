@@ -1190,3 +1190,8 @@ sidebar-main {
   /* The system font (SF) at the same size; Windows' Segoe is simply absent */
   :root { --m-font: -apple-system, system-ui, sans-serif; }
 }
+
+/* The ☰ menu's "Synchronise your data everywhere / Sign in" banner (shown
+   while signed out) is a purple card; the theme has no colour and no account
+   prompts. Signing in stays available in Settings › Sync. */
+#appMenu-fxa-sign-in-promo { display: none !important; }

@@ -1,0 +1,52 @@
+name: Something looks wrong
+description: A part of Firefox that looks broken, misaligned or off-theme
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: A screenshot is the most useful thing you can add.
+  - type: dropdown
+    id: theme
+    attributes:
+      label: Theme
+      options: [Minimal Dark, XP Classic, Luna 2026, Luna 2026 + Mac]
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What looks wrong, and where
+      description: Which part of Firefox (address dropdown, ☰ menu, a dialog, Settings…), and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot
+      description: Paste or drag one in.
+  - type: input
+    id: firefox
+    attributes:
+      label: Firefox version
+      description: ☰ › Help and Report › About Firefox
+      placeholder: "159.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: System
+      options: [Windows 11, Windows 10, macOS, Linux]
+    validations:
+      required: true
+  - type: input
+    id: scaling
+    attributes:
+      label: Display scaling
+      description: Windows Settings › System › Display › Scale
+      placeholder: "125%"
+  - type: dropdown
+    id: install
+    attributes:
+      label: Installed with
+      options: [The installer (.exe), The switcher, install-mac.sh, By hand]

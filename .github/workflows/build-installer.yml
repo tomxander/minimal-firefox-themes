@@ -1,0 +1,54 @@
+name: Build installer
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the CSS braces balance
+        shell: pwsh
+        run: |
+          $bad = $false
+          Get-ChildItem themes -Recurse -Filter *.css | ForEach-Object {
+            $t = Get-Content $_.FullName -Raw
+            $t = [regex]::Replace($t, '/\*[\s\S]*?\*/', '')
+            $open = ($t.ToCharArray() | Where-Object { $_ -eq '{' }).Count
+            $close = ($t.ToCharArray() | Where-Object { $_ -eq '}' }).Count
+            if ($open -ne $close) { Write-Host "::error file=$($_.FullName)::$open '{' but $close '}'"; $bad = $true }
+            else { Write-Host "$($_.Name): $open blocks" }
+          }
+          if ($bad) { exit 1 }
+
+      - name: Build
+        shell: pwsh
+        run: ./installer/build.ps1
+
+      - name: Install and uninstall against a scratch profile
+        shell: pwsh
+        run: |
+          $exe = "installer/dist/Minimal Firefox Theme Setup.exe"
+          $p = Join-Path $env:RUNNER_TEMP 'profile'
+          New-Item -ItemType Directory -Force $p | Out-Null
+          Set-Content "$p/prefs.js" ''
+          Set-Content "$p/user.js" 'user_pref("their.own.setting", 42);'
+          $i = (Start-Process $exe -ArgumentList "/silent /profile `"$p`" /nolaunch /noregister" -Wait -PassThru).ExitCode
+          if ($i -ne 0 -or -not (Test-Path "$p/chrome/userChrome.css")) { throw "install failed ($i)" }
+          $u = (Start-Process $exe -ArgumentList "/uninstall /silent /profile `"$p`" /nolaunch /noregister" -Wait -PassThru).ExitCode
+          $kept = (Get-Content "$p/user.js" -Raw).Trim()
+          if ($u -ne 0 -or $kept -ne 'user_pref("their.own.setting", 42);' -or (Test-Path "$p/chrome")) { throw "uninstall did not restore the profile ($u)" }
+          "install and uninstall OK"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Minimal Firefox Theme Setup
+          path: installer/dist/Minimal Firefox Theme Setup.exe

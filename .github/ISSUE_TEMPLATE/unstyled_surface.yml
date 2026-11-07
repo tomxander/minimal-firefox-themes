@@ -1,0 +1,22 @@
+name: A part of Firefox isn't themed
+description: A menu, panel, dialog or page that still has Firefox's default look
+labels: ["unstyled surface"]
+body:
+  - type: textarea
+    id: where
+    attributes:
+      label: Where
+      description: What it is and how to open it (for example, "Settings › Privacy › Clear data dialog").
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot
+    validations:
+      required: true
+  - type: input
+    id: firefox
+    attributes:
+      label: Firefox version
+      placeholder: "159.0"
