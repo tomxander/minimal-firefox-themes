@@ -4,6 +4,7 @@ Versions are the Windows installer's (`Engine.Version`). The themes themselves f
 
 ## Unreleased
 
+- **Licence** is now the [PolyForm Noncommercial License 1.0.0](LICENSE.md) (briefly MIT before the repository was shared): free to use, change and share for non-commercial purposes, not to sell.
 - Minimal Dark: hide the purple "Synchronise your data everywhere" sign-in banner in the ☰ menu (shown to signed-out users). Signing in is still available in Settings › Sync.
 
 ## 1.1 (2 November 2026)

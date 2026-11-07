@@ -12,7 +12,7 @@
 ![Windows 11](https://img.shields.io/badge/Windows-11-262624?style=flat-square&logo=windows11&logoColor=E8E6E1)
 ![macOS](https://img.shields.io/badge/macOS-untested-5E5C58?style=flat-square&logo=apple&logoColor=E8E6E1)
 ![No admin rights](https://img.shields.io/badge/admin_rights-not_needed-262624?style=flat-square)
-[![MIT licence](https://img.shields.io/badge/licence-MIT-262624?style=flat-square)](LICENSE)
+[![Licence: PolyForm Noncommercial](https://img.shields.io/badge/licence-PolyForm_Noncommercial-262624?style=flat-square)](LICENSE.md)
 
 <br>
 
@@ -28,7 +28,8 @@
 [The other themes](#the-other-themes) ·
 [How it's built](#how-its-built) ·
 [Installer](#the-installer) ·
-[Known gaps](#known-gaps)
+[Known gaps](#known-gaps) ·
+[Licence](#licence)
 
 </div>
 
@@ -286,6 +287,18 @@ See [CHANGELOG.md](CHANGELOG.md) for what changed in each version and [CONTRIBUT
 
 <br>
 
+## Licence
+
+Minimal and the other themes, the switcher, the scripts and the installer are released under the [PolyForm Noncommercial License 1.0.0](LICENSE.md).
+
+- **You can** use them, change them, and share them or your changed versions for free, for any non-commercial purpose. Personal use counts, and so do charities, schools and similar organisations.
+- **You can't** sell them or a modified version, or use them in a commercial product or service, without permission.
+- **When you share them**, include the licence and this line: `Required Notice: Copyright Thomas Alex (https://thomasalex.in)`
+
+For commercial use, get in touch through <https://thomasalex.in>.
+
+<br>
+
 <div align="center">
-<sub>Made by <a href="https://thomasalex.in">Thomas Alex</a>. Released under the <a href="LICENSE">MIT licence</a>.</sub>
+<sub>Made by <a href="https://thomasalex.in">Thomas Alex</a>. Free for non-commercial use under the <a href="LICENSE.md">PolyForm Noncommercial licence</a>.</sub>
 </div>
