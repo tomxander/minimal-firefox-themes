@@ -4,7 +4,7 @@
 
 **A quieter Firefox.** One slim graphite row, one 1px accent, and nothing else around the page.
 
-[![Download for Windows](https://img.shields.io/badge/Download_for_Windows-v1.1-E8E6E1?style=for-the-badge&labelColor=1C1C1B&logo=windows11&logoColor=E8E6E1)](https://github.com/tomxander/firefox-themes/releases/latest)
+[![Download for Windows](https://img.shields.io/badge/Download_for_Windows-v1.1-E8E6E1?style=for-the-badge&labelColor=1C1C1B&logo=windows11&logoColor=E8E6E1)](https://github.com/tomxander/minimal-firefox-themes/releases/latest)
 &nbsp;
 [![Project page](https://img.shields.io/badge/Project_page-thomasalex.in-8F8C86?style=for-the-badge&labelColor=1C1C1B)](https://thomasalex.in/minimal)
 
@@ -137,7 +137,7 @@ Every surface gets the same treatment: menus, the address dropdown, the ☰ pane
 
 ### Windows: the installer
 
-1. Download **`Minimal Firefox Theme Setup.exe`** from the [latest release](https://github.com/tomxander/firefox-themes/releases/latest).
+1. Download **`Minimal Firefox Theme Setup.exe`** from the [latest release](https://github.com/tomxander/minimal-firefox-themes/releases/latest).
 2. Windows may say *"Windows protected your PC"* because the installer isn't code-signed. Click **More info**, then **Run anyway**.
 3. Click **Install**. If Firefox is open it closes for a moment and reopens with your tabs.
 
@@ -183,7 +183,7 @@ bash scripts/install-mac.sh minimal
 Quit Firefox first. This copies one theme into your default profile; add `--profile <path>` for another one (Firefox lists them at `about:profiles`). To switch, run it again with another theme name.
 
 > [!IMPORTANT]
-> The macOS variant (section 20 of `themes/minimal/userChrome.css`) puts ☰ at the right edge, leaves room for the traffic lights and uses the system font. It hasn't been checked on a Mac yet ([#1](https://github.com/tomxander/firefox-themes/issues/1)).
+> The macOS variant (section 20 of `themes/minimal/userChrome.css`) puts ☰ at the right edge, leaves room for the traffic lights and uses the system font. It hasn't been checked on a Mac yet ([#1](https://github.com/tomxander/minimal-firefox-themes/issues/1)).
 
 <br>
 
@@ -275,13 +275,13 @@ This uses the `csc.exe` that ships with Windows, so there's nothing to install. 
 
 ## Known gaps
 
-These are tracked as [issues](https://github.com/tomxander/firefox-themes/issues):
+These are tracked as [issues](https://github.com/tomxander/minimal-firefox-themes/issues):
 
-- **macOS** variant not yet checked on a Mac ([#1](https://github.com/tomxander/firefox-themes/issues/1)).
-- **Error pages** still show Firefox's colour illustration, which lives inside a shadow DOM that `userContent.css` can't reach ([#2](https://github.com/tomxander/firefox-themes/issues/2)).
-- **Add-ons page** recommendations show a colour illustration ([#3](https://github.com/tomxander/firefox-themes/issues/3)).
-- **The switcher** is Windows only ([#7](https://github.com/tomxander/firefox-themes/issues/7)), and reopens Firefox with an extra blank tab ([#4](https://github.com/tomxander/firefox-themes/issues/4)).
-- Holding <kbd>Alt</kbd> can make the menu bar cover ☰ ([#5](https://github.com/tomxander/firefox-themes/issues/5)).
+- **macOS** variant not yet checked on a Mac ([#1](https://github.com/tomxander/minimal-firefox-themes/issues/1)).
+- **Error pages** still show Firefox's colour illustration, which lives inside a shadow DOM that `userContent.css` can't reach ([#2](https://github.com/tomxander/minimal-firefox-themes/issues/2)).
+- **Add-ons page** recommendations show a colour illustration ([#3](https://github.com/tomxander/minimal-firefox-themes/issues/3)).
+- **The switcher** is Windows only ([#7](https://github.com/tomxander/minimal-firefox-themes/issues/7)), and reopens Firefox with an extra blank tab ([#4](https://github.com/tomxander/minimal-firefox-themes/issues/4)).
+- Holding <kbd>Alt</kbd> can make the menu bar cover ☰ ([#5](https://github.com/tomxander/minimal-firefox-themes/issues/5)).
 
 See [CHANGELOG.md](CHANGELOG.md) for what changed in each version and [CONTRIBUTING.md](CONTRIBUTING.md) for how to work on the themes.
 

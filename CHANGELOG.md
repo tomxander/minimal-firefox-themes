@@ -9,7 +9,7 @@ Versions are the Windows installer's (`Engine.Version`). The themes themselves f
 
 ## 1.1 (2 November 2026)
 
-[Release](https://github.com/tomxander/firefox-themes/releases/tag/v1.1)
+[Release](https://github.com/tomxander/minimal-firefox-themes/releases/tag/v1.1)
 
 Minimal Dark:
 
