@@ -1,4 +1,5 @@
 current.txt
 *.zip
+installer/dist/
 Thumbs.db
 .DS_Store
