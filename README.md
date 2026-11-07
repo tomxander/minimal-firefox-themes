@@ -181,7 +181,7 @@ bash scripts/install-mac.sh minimal
 Quit Firefox first. This copies one theme into your default profile; add `--profile <path>` for another one (Firefox lists them at `about:profiles`). To switch, run it again with another theme name.
 
 > [!IMPORTANT]
-> The macOS variant (section 20 of `themes/minimal/userChrome.css`) puts ☰ at the right edge, leaves room for the traffic lights and uses the system font. It hasn't been checked on a Mac yet; see [#mac](#known-gaps).
+> The macOS variant (section 20 of `themes/minimal/userChrome.css`) puts ☰ at the right edge, leaves room for the traffic lights and uses the system font. It hasn't been checked on a Mac yet ([#1](https://github.com/tomxander/firefox-themes/issues/1)).
 
 <br>
 
@@ -275,11 +275,11 @@ This uses the `csc.exe` that ships with Windows, so there's nothing to install. 
 
 These are tracked as [issues](https://github.com/tomxander/firefox-themes/issues):
 
-- **macOS** variant not yet checked on a Mac.
-- **Error pages** still show Firefox's colour illustration (it lives inside a shadow DOM that `userContent.css` can't reach).
-- **Add-ons page** recommendations show a colour illustration.
-- **The switcher** is Windows only, and reopens Firefox with an extra blank tab.
-- Holding <kbd>Alt</kbd> can make the menu bar cover ☰.
+- **macOS** variant not yet checked on a Mac ([#1](https://github.com/tomxander/firefox-themes/issues/1)).
+- **Error pages** still show Firefox's colour illustration, which lives inside a shadow DOM that `userContent.css` can't reach ([#2](https://github.com/tomxander/firefox-themes/issues/2)).
+- **Add-ons page** recommendations show a colour illustration ([#3](https://github.com/tomxander/firefox-themes/issues/3)).
+- **The switcher** is Windows only ([#7](https://github.com/tomxander/firefox-themes/issues/7)), and reopens Firefox with an extra blank tab ([#4](https://github.com/tomxander/firefox-themes/issues/4)).
+- Holding <kbd>Alt</kbd> can make the menu bar cover ☰ ([#5](https://github.com/tomxander/firefox-themes/issues/5)).
 
 See [CHANGELOG.md](CHANGELOG.md) for what changed in each version and [CONTRIBUTING.md](CONTRIBUTING.md) for how to work on the themes.
 
